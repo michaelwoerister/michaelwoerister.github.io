@@ -1,43 +1,9 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>a bit of respite by michaelwoerister</title>
+---
+layout: default
+---
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="javascripts/scale.fix.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <h1 class="header">a bit of respite</h1>
-        <p class="header"></p>
-
-
-
-        <ul>
-          <li><a class="buttons github" href="https://github.com/michaelwoerister">GitHub Profile</a></li>
-        </ul>
-
-      </header>
-      <section>
-        <p>{% for post in site.posts %}
-  <a href="%7B%7B%20post.url%20%7D%7D"><h4>
-<a name="-posttitle-" class="anchor" href="#-posttitle-"><span class="octicon octicon-link"></span></a>{{ post.title }}</h4></a>
-  </p><p>{{ post.excerpt }}</p>
+{% for post in site.posts %}
+  <a href="{{ post.url }}"><h4>{{ post.title }}</h4></a>
+  <p>{{ post.excerpt }}</p>
 {% endfor %}
-      </section>
-      <footer>
-        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
-      </footer>
-    </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-		
-  </body>
-</html>
+
