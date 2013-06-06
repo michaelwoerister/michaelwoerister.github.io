@@ -3,7 +3,8 @@ layout: default
 ---
 
 {% for post in site.posts %}
-  <a href="{{ post.url }}"><h4>{{ post.title }}</h4></a>
-  <p>{{ post.excerpt }}</p>
+  {{ post.excerpt }}
+  <a href="{{ post.url }}">(read more)</a><br>
+  -- {{ post.date | date_to_long_string }}
 {% endfor %}
 
