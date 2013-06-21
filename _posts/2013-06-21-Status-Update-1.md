@@ -15,15 +15,15 @@ adding documentation to debuginfo.rs and cleaning up the code. It turned out tha
 [vadimcn](https://github.com/vadimcn) had a [pull request](https://github.com/mozilla/rust/pull/7134)
 in the works that would replace direct LLVM metadata generation with calls to LLVM's
 `DIBuilder`. Vadim was nice enough to get this ready before I started. Not only will this make
-`rustc` more robust against future updates of LLVM, it also meant a significantly cleaner
-`debuginfo.rs` to start my project from for me. So thanks again, Vadim!
+`rustc` more robust against future updates of LLVM, for me it also meant a significantly cleaner
+`debuginfo.rs` to start my project from. So thanks again, Vadim!
 
 Of course there has still been more than enough for me to do. I put up some
 [general documentation](https://github.com/michaelwoerister/rust/commit/5d5311dc74b2bce19a754538dfd3c849e8c989ed)
 about the debug symbol generation process and how the module fits into the rest of the code base. I
 [restructured](https://github.com/michaelwoerister/rust/commit/290d35312a8c74d4652d2e8196234151f9efcabf)
 the file a little to more clearly separate public and private functionality of the module. This
-clean up will go on over the next three month. I hope it will be obvious from the code that the
+clean up will go on over the next three months. I hope it will be visible from the code that the
 module has its own dedicated caretaker now. The whole thing is wrapped up in a
 [pull request](https://github.com/mozilla/rust/pull/7255).
 
@@ -56,4 +56,4 @@ For next week, I plan to continue creating more test cases and―hopefully with 
 debuginfo module in sync with any memory layout changes defined in some other part of the compiler.
 
 Last but not least, I don't want to let my GSoC Mentor [Josh](https://github.com/jdm/) go
-unmentioned here. He has been very kind and helpful throughout. Thanks Josh :smile:
+unmentioned here. He has been very kind and helpful throughout. Thanks Josh ☺
