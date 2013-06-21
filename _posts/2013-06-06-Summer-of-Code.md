@@ -10,6 +10,8 @@ in your step it has not subsided since. Maybe you don't know where it is
 coming from, this assurance that this summer is going to be good, to be great
 even---so let me tell you.
 
+
+
 Yes, it is true, I have been accepted to this year's 
 [Google Summer of Code](http://www.google-melange.com/gsoc/homepage/google/gsoc2013)
 and I will be working on debug symbol generation for [Mozilla's](http://www.mozilla.org/) [Rust](http://www.rust-lang.org/). 

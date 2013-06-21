@@ -1,0 +1,4 @@
+markdown: redcarpet
+future: false
+excerpt_separator: "\n\n\n\n"
+
