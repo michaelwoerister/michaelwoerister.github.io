@@ -5,9 +5,9 @@ layout: default
 
 > tl;dr ― Memory layout debug info finally done right :)
 
+Another week past, another report due. Last week I already started thinking about how to handle data structure memory layout in a less fragile way than the compiler does to date. Some of these thoughts can also be read about in an [email](https://mail.mozilla.org/pipermail/rust-dev/2013-June/004572.html) I posted on the mailing list on Monday. The short version is this:
 
 
-Another week past, another report due. Last week I already started thinking about how to handle data structure memory layout in a less fragile way than the compiler does to date. Some of these thoughts can be also be read about in an [email](https://mail.mozilla.org/pipermail/rust-dev/2013-June/004572.html) I posted on the mailing list on Monday. The short version is this:
 
 > Use the definite source of the information you need. Do not try to reconstruct the information using an algorithm of your own which you think―probably, hopefully―behaves the same way the original algorithm constructing the original information does. If the results you are looking for are lying in front of you anyway, just look them up!
 
