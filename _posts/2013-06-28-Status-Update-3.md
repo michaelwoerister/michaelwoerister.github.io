@@ -8,6 +8,8 @@ layout: default
 
 A rather short update this week. I've been working on supporting the various kinds of enums, starting with c-style ones (that is, their values just consist of a discriminant and have no fields). This worked out rather nicely, as they have a direct equivalent in C and LLVM's `DIBuilder`, DWARF, and `gdb` have good support for handling them.
 
+
+
 I then went on to tuple-style enum variants, like the one below:
 
 ```rust
