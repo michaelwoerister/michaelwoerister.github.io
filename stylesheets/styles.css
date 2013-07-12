@@ -98,13 +98,13 @@ strong {
 }
 
 ul li {
-  list-style: inside;
-  padding-left: 25px;
+  list-style: outside;
+  margin-left: 25px;
 }
 
 ol li {
-  list-style: decimal inside;
-  padding-left: 20px;
+  list-style: decimal outside;
+  margin-left: 20px;
 }
 
 blockquote {
@@ -121,8 +121,6 @@ blockquote {
   overflow: auto;
   overflow-y: hidden;
   margin-bottom: 20px;
-  /*margin-left: 12px;
-  margin-right: 12px;*/
 }
 
 blockquote p {
