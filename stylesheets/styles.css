@@ -108,10 +108,27 @@ ol li {
 }
 
 blockquote {
-  margin: 0;
-  padding: 0 0 0 20px;
-  font-style: italic;
+  color:#000;
+  font-size:14px;
+
+  padding-left: 12px;
+  padding-right: 24px;
+  padding-top: 4px;
+  padding-bottom: 2px;
+  background: #FDFEFB;
+  border-radius:4px;
+  border:1px solid #D7D8C8;
+  overflow: auto;
+  overflow-y: hidden;
+  margin-bottom: 20px;
+  /*margin-left: 12px;
+  margin-right: 12px;*/
 }
+
+blockquote p {
+  margin-bottom: 2px;
+}
+
 
 dl, dt, dd, dl p {
 	font-color: #444;
@@ -152,22 +169,47 @@ img {
 
 /* Code blocks */
 
-code, pre {
-	font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
-  color:#000;
-  font-size:14px;
+pre code {
+  padding: 1px 2px 0px 2px;
 }
 
 pre {
+  font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+  color:#000;
+  font-size:14px;
 	padding: 4px 12px;
   background: #FDFEFB;
-  border-radius:4px;
-  border:1px solid #D7D8C8;
   overflow: auto;
   overflow-y: hidden;
 	margin-bottom: 32px;
+  border-radius:4px;
+  border:1px solid #D7D8C8;
 }
 
+pre code {
+  padding: 1px 2px 0px 2px;
+  border:0px;
+}
+
+code {
+  background: #FDFEFB;
+  font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+  color:#000;
+  font-size:14px;
+  border-radius:4px;
+  border:1px solid #D7D8C8;
+  padding: 1px 2px 0px 2px;
+}
+
+blockquote code {
+  font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+  color:#000;
+  font-size:14px;
+  background: #EDEEEB;
+  border-radius:4px;
+  border:1px solid #D7D8C8;
+  padding: 1px 2px 0px 2px;
+}
 
 /* Tables */
 
