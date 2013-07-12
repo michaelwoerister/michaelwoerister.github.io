@@ -12,19 +12,14 @@ The last few days I have worked mostly on wrapping up support for `enums` in the
 
 > This pull request includes various improvements:
 >
-> - Composite types (structs, tuples, boxes, etc) are now handled more cleanly by debuginfo generation. Most notably, field offsets are now extracted directly from LLVM types, as opposed to trying to reconstruct them. This leads to more stable handling of edge cases (e.g. packed structs or structs implementing drop).
-> 
-> - `debuginfo.rs` in general has seen a major cleanup. This includes better formatting, more readable variable and function names, removal of dead code, and better factoring of functionality.
-> 
-> - Handling of VariantInfo in `middle::ty` has been improved. That is, the  
-> `type VariantInfo = @VariantInfo_` typedef has been replaced with explicit uses of `@VariantInfo`, and the duplicated logic for creating `VariantInfo` instances in `ty::enum_variants()` and `typeck::check::mod::check_enum_variants()` has been unified into a single constructor function. Both functions now look nicer too :)
-> 
+> - Composite types (structs, tuples, boxes, etc) are now handled more cleanly by debuginfo generation. Most notably, field offsets are now extracted directly from LLVM types, as opposed to trying to reconstruct them. This leads to more stable handling of edge cases (e.g. packed structs or structs implementing drop).<br><br>
+> - `debuginfo.rs` in general has seen a major cleanup. This includes better formatting, more readable variable and function names, removal of dead code, and better factoring of functionality.<br><br>
+> - Handling of VariantInfo in `middle::ty` has been improved. That is, the<br>`type VariantInfo = @VariantInfo_` typedef has been replaced with explicit uses of `@VariantInfo`, and the duplicated logic for creating `VariantInfo` instances in `ty::enum_variants()` and `typeck::check::mod::check_enum_variants()` has been unified into a single constructor function. Both functions now look nicer too :)<br><br>
 > - Debug info generation for enum types is now mostly supported. This includes:
 >   + Good support for C-style enums. Both DWARF and gdb know how to handle them.
 >   + Proper description of tuple- and struct-style enum variants as unions of structs.
 >   + Proper handling of univariant enums without discriminator field.
 >   + Unfortunately gdb always prints all possible interpretations of a union, so debug output of enums is verbose and unintuitive. Neither LLVM nor gdb support DWARF's `DW_TAG_variant` which allows to properly describe tagged unions. Adding support for this to LLVM seems doable. gdb however is another story. In the future we might be able to use gdb's Python scripting support to alleviate this problem. In agreement with [jdm](https://github.com/jdm) this is not a high priority for now.
-> 
 > - The debuginfo test suite has been extended with 14 test files including tests for packed structs (with Drop), boxed structs, boxed vecs, vec slices, C-style enums (standalone and embedded), empty enums, tuple- and struct-style enums, and various pointer types to the above.
 > 
 > What is not yet included is DI support for some enum edge-cases represented as described in `trans::adt::NullablePointer`.
