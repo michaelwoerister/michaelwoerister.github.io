@@ -11,7 +11,7 @@ Lately, I've been thinking about what it would take to implement C#-inspired
 order into my thought process by means of this blog.
 
 <center>
-<img width="400px" src="{{ site.url }}/images/leighton-an-italian-lady.jpg"></img>
+<img width="400px" src="http://michaelwoerister.github.io/images/leighton-an-italian-lady.jpg"></img>
 </center>
 
 *Iterator blocks* (in C# parlance) or *generators* (Python) are what is commonly associated with a
