@@ -349,6 +349,19 @@ a.buttons:hover {
 	text-decoration: none;
 }
 
+.whiteflower {
+  border-width: 0px;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  height: 14pt;
+}
+
+.blackflower {
+  border-width: 0px;
+  padding: 0px 0px 0px 5px;
+  margin: 0px 0px 0px 0px;
+  height: 13pt;
+}
 
 /* Section - for main page content */
 

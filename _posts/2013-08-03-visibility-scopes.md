@@ -160,4 +160,4 @@ The last point is also solved by explicitly walking the AST, instead of trying t
 
 The [resulting algorithm](https://github.com/michaelwoerister/rust/blob/lexical_scopes_alt/src/librustc/middle/trans/debuginfo.rs) looks very promising. It is much easier to understand and already more full-featured than the former one. It still needs some more testing and fixing of corner cases, but the basic structure seems to allow to do so with strange hacks being needed.
 
-Have a nice weekend! ⚘
+Have a nice weekend! <img class="blackflower" src="{{site.url}}/images/flower-black.svg"></img>

@@ -61,4 +61,4 @@ Of course I'll try to also discuss each of these topics on the
 [Rust mailing list](https://mail.mozilla.org/listinfo/rust-dev). No use in soliloquizing about 
 something that needs broad acceptance by the community. In the best case scenario this might even
 turn into a proof-of-concept implementation some time in the future (no promises made though).  
-I'd already be happy to have a few interested readers. ⚘
+I'd already be happy to have a few interested readers. <img class="blackflower" src="{{site.url}}/images/flower-black.svg"></img>
