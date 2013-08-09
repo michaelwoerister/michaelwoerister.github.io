@@ -1,0 +1,175 @@
+---
+layout: default
+---
+
+<h1>Iterator Blocks for Rust - Feature Survey</h1>
+<p>
+In the first concrete installment of my <a href="http://michaelwoerister.github.io/2013/07/26/Iterator-Blocks.html">series on iterator blocks</a> I want to explore the possible feature set that could/should be supported in Rust. In the following paragraphs I will try to collect things that I think one would expect from iterator blocks in Rust. Mind, however, that this is just my opinion so far. I'd very much like to discuss this with anyone interested on the mailing list. Nevertheless, I think a collection like this is valuable as a point of departure&mdash;even if most of it won't make into a hypothetical final implementation.
+</p>
+
+<center>
+<img style="background:#000; padding: 5px;" src="http://michaelwoerister.github.io/images/coco-chanel.jpg" alt="Coco Chanel"></img>
+</center>
+
+<p>
+I categorized the points below into <em>must haves</em>, <em>nice to haves</em>, and <em>things to think about</em>. The syntax I use here is very close to C# and should not be considered a proposal for the real syntax. This topic is big enough to warrant its own post.
+</p>
+
+
+
+<h2>the must haves</h2>
+The features in this category probably won't be disputed all too much.
+
+<span class="desc-head">Core Functionality: Allow yielding things</span>
+<div class="desc-body">
+This is kind of obvious but it should be clarified what it exactly means. I would suggest to take the C# functionality as a baseline here, where <code>yield</code> allows to implement
+<ul>
+    <li>resumable functions</li>
+    <li>that may return a value whenever yielding control.</li>
+</ul>
+This allows for some interesting things:
+<ul>
+    <li>One can write external iterators like internal ones.</li>
+    <li>It can also be used to implement stop-and-go control flow.</li>
+</ul>
+</div>
+
+<span class="desc-head">Implement std::iterator::Iterator</span>
+<div class="desc-body">
+Iterators created from iterator blocks should implement the <code>std::iterator::Iterator</code> trait in order to be compatible with the rest of the standard library and language facilities such as <code>for</code> loops.
+</div>
+
+<span class="desc-head">Support yielding owned values (~)</span>
+<div class="desc-body">
+One should be able to yield owned values, such as in:
+
+{% highlight rust %}
+fn generate_owned_ints() -> Iterator<~int> {
+    // yield an owned r-value
+    yield return ~1;
+
+    let x = ~2;
+    let y = ~3;
+
+    // yield an owned l-value
+    yield return x;
+    // x is not accessible here any more.
+
+    // this case is a bit trickier because y has to be
+    // retained across a *yield return* boundary, but it
+    // should be supported nonetheless.
+    yield return y;
+}
+{% endhighlight %}
+
+This should also allow to create an iterator block that takes ownership of some collection and gradually moves values out of it (like <code>std::vec::ConsumeIterator</code> does).
+</div>
+
+<span class="desc-head">Support borrowing iterators (&)</span>
+<div class="desc-body">
+    Iterator blocks should allow to yield borrowed references into any data structure iterated over:
+
+{% highlight rust %}
+fn strange_seq<'a>(input: &'a mut HashMap<int, int>)
+                            -> Iterator<&'a mut int> {
+    yield return input.get_mut(100);
+    yield return input.get_mut(1000);
+    yield return input.get_mut(100000);
+}
+{% endhighlight %}
+</div>
+
+<span class="desc-head">Performance</span>
+<div class="desc-body">
+    <p>Iterator blocks should be as fast as handwritten iterators if possible. In my view, this pretty much rules out any implementation relying on each iterator having its own stack. C#'s way of transforming the iterator block code into a lightweight state machine seems the way to go here.</p>
+
+    <p>It probably also means that iterators created from yielding functions should not require a heap allocation. That would mean that each iterator function should introduce its own type implementing <code>std::iterator::Iterator</code> to allow for stack allocation and static method dispatch. This is just me thinking aloud, though. There has also been <a href="https://mail.mozilla.org/pipermail/rust-dev/2013-June/004618.html">talk</a> about other ways to deal with this problem.</p>
+</div>
+
+<span class="desc-head">Good Error Messages</span>
+<div class="desc-body">
+If a piece of iterator code is not legal the compiler should tell you as clearly as possible why it isn't and how you might fix it. This is an important requirement to keep in mind because it might be possible to implement iterator blocks as a mere AST transformation (like the new <code>for</code> loop). In this case, the error messages generated from the &raquo;de-sugared&laquo; version of the code might not be very helpful and even confusing.
+</div>
+
+
+<h2>the nice to haves</h2>
+
+I could imagine an iterator block implementation that does not have the features in this category but that would still be useful.
+
+<span class="desc-head">yield break</span>
+<div class="desc-body">
+In C# you can call <code>yield break</code> from within an iterator block to end iteration explicitly. This more or less corresponds to a Rust <code>Iterator</code> returning <code>None</code> from <code>next()</code>. One can probably get by without this, but it's definitely useful.
+</div>
+
+<span class="desc-head">No dependence on threads, scheduler and garbage collection</span>
+<div class="desc-body">
+There seems to be quite some interest in using Rust without its runtime. The iterator block implementation should not depend on anything that would make it impossible to use it in such <a href="https://github.com/pcwalton/zero.rs">constrained contexts</a> (once <code>std::iterator</code> can be used there too). The state machine transformation should be able to fullfil this requirement.
+</div>
+
+<span class="desc-head">Efficient Iterator Nesting</span>
+<div class="desc-body">
+This is a genuinely interesting item. Regular state machine iterators can become quite inefficient when nested, like in the following example.
+
+{% highlight rust %}
+enum LinearList {
+    Node { data: int, tail: ~LinearList },
+    Nil
+}
+
+fn traverse(list: &LinearList) -> Iterator<int> {
+    match *list {
+        Node { data: data, tail: ~ref tail } => {
+            yield return data;
+
+            // Recursively iterate
+            for item in traverse(tail) {
+                yield return item;
+            }
+        }
+        Nil => {
+            yield break;
+        }
+    }
+}
+{% endhighlight %}
+
+With the code above every call to the outer iterator traverses every nesting level until the currently active one, leading to an O(n&sup2;) runtime for traversing a linear list. Obviously, there is some unnecessary overhead involved here.
+To the rescue come Erik Meijer and friends: In their <a href="http://research.microsoft.com/en-us/projects/specsharp/iterators.pdf">Iterators revisited</a> paper Jacobs et al present a rather straight forward implementation for nested iterators. It introduces a new <em>yield everything from another iterator</em> construct. With something like this the above example can be written as:
+
+{% highlight rust %}
+fn traverse(list: &LinearList) -> Iterator<int> {
+    match *list {
+        Node { data: data, tail: ~ref tail } => {
+            yield return data;
+
+            // yield everything from the sub iterator
+            yield .. traverse(tail);
+        }
+        Nil => {
+            yield break;
+        }
+    }
+}
+{% endhighlight %}
+
+The paper proposes to introduce a <em>root iterator</em>, directly dispatching control into the correct sub-iterator, skipping any intermediate sub-iterators. This works for any kind of nested iterators and brings runtime down to O(n) when traversing an n element data structure.
+
+Unfortunately, Microsoft seems to hold <a href="http://www.google.com/patents/US7937694">a patent</a> on this technique. Mind, though, that I'm not a lawyer. And the whole concept of software patents&mdash;especially on things any bright undergrad could develop on her own&mdash;does not quite compute in my European brain. So maybe there is some way to still use this intricate method of "using a stack to traverse a recursive structure" that Microsoft invented in 2004.
+</div>
+
+<h2>the things to think about</h2>
+Well, it's really just one thing to think about. According to <a href="http://www.cs.indiana.edu/~sabry/papers/yield.pdf">[James & Sabry, 2011]</a> iterators in Ruby support taking arguments when resuming iteration. In Rust this would mean that the <code>next()</code> method in the `Iterator` trait would be able to take additional arguments:
+
+{% highlight rust %}
+pub trait Iterator<A, T> {
+    /// Advance the iterator and return the next value.
+    /// Return `None` when the end is reached.
+    fn next(&mut self, arg: T) -> Option<A>;
+}
+{% endhighlight %}
+
+The current <code>Iterator</code> trait would then be a special case with <code>T == ()</code>. This sounds kind of nice but I could not come up with a good use case. It also might complicate things unnecessarily. But I wanted to have mentioned it.
+
+<h2>conclusion</h2>
+I hope I've provided you with some food for thought. I'd be interested in what others have to say about the topic. So head on over to the <a href="">mailing list thread</a> and let me know! <img class="blackflower" src="{{site.url}}/images/flower-black.svg"></img>
+
