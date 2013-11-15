@@ -45,6 +45,7 @@ Master thesis written at the [VRVis](www.vrvis.at). Describes and evaluates a sy
 A puzzle platformer with two simultaniously controlled characters and a Braid-inspired rewind feature. Programmed in C#, using XNA, including a map editor with undo/redo functionality. Never got finished due to lack of spare time and a clear vision of what the final game should play and look like. Artwork by [Martin Wörister](http://miascugh.multimediaart.at/).
 
 * [Demo version (Windows) including some 10 playable levels](https://www.dropbox.com/s/g0p7z5dqsti21ru/ReddAndBlouDemo.zip)
+* [XNA 4 Redistributable (required)](https://www.microsoft.com/en-us/download/details.aspx?id=20914)
 
 ## Engine of Evermore (2008-2009)
 Component-based 2D game engine written in C# (also running on Linux using Mono), including map editor with undo/redo functionality, file system abstraction layer, optimized sprite sheet packing. Never finished, but very educational to work on.
