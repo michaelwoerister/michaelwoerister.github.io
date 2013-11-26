@@ -52,6 +52,11 @@ Component-based 2D game engine written in C# (also running on Linux using Mono),
 
 * [Source Code on code.google.com](http://code.google.com/p/engineofevermore/)
 
+## Platinum.PropertyGrid (2008-2009)
+A replacement for .Net's [System.Windows.Forms.PropertyGrid](http://msdn.microsoft.com/en-us/library/system.windows.forms.propertygrid%28v=vs.110%29.aspx) with support for realtime feedback and transactional property manipulation protocol. Developed for the editor of Engine of Evermore.
+
+* [Source Code on code.google.com](http://code.google.com/p/platinum-propertygrid/)
+
 ## TGB-Box2D Integration (2008)
 For my bachelor thesis I integrated the Box2D physics engine into the Torque Game Builder runtime engine and level editor. Has been used by others within several commercial projects, afaik.
 
