@@ -8,7 +8,7 @@ layout: default
 
 
 
-The last few days I have worked mostly on wrapping up support for `enums` in the `trans::debuginfo` module. This finally prepares the improved handling of memory layout I already [talked about 2 weeks ago]({{site.url}}/2013/06/28/Status-Update-2.html) for being merged  into the official master branch of Rust. These changes, along with others, are currently under (undoubtedly merciless) review by [jdm](https://github.com/jdm) in a [pull request](https://github.com/mozilla/rust/pull/7710) from which the following summary is shamelessly copied:
+The last few days I have worked mostly on wrapping up support for `enums` in the `trans::debuginfo` module. This finally prepares the improved handling of memory layout I already [talked about 2 weeks ago]({{site.url}}/2013/06/28/Status-Update-2.html) for being merged  into the official master branch of Rust. These changes, along with others, are currently under (undoubtedly merciless) review by [jdm](//github.com/jdm) in a [pull request](//github.com/mozilla/rust/pull/7710) from which the following summary is shamelessly copied:
 
 > This pull request includes various improvements:
 >
@@ -19,15 +19,15 @@ The last few days I have worked mostly on wrapping up support for `enums` in the
 >   + Good support for C-style enums. Both DWARF and gdb know how to handle them.
 >   + Proper description of tuple- and struct-style enum variants as unions of structs.
 >   + Proper handling of univariant enums without discriminator field.
->   + Unfortunately gdb always prints all possible interpretations of a union, so debug output of enums is verbose and unintuitive. Neither LLVM nor gdb support DWARF's `DW_TAG_variant` which allows to properly describe tagged unions. Adding support for this to LLVM seems doable. gdb however is another story. In the future we might be able to use gdb's Python scripting support to alleviate this problem. In agreement with [jdm](https://github.com/jdm) this is not a high priority for now.
+>   + Unfortunately gdb always prints all possible interpretations of a union, so debug output of enums is verbose and unintuitive. Neither LLVM nor gdb support DWARF's `DW_TAG_variant` which allows to properly describe tagged unions. Adding support for this to LLVM seems doable. gdb however is another story. In the future we might be able to use gdb's Python scripting support to alleviate this problem. In agreement with [jdm](//github.com/jdm) this is not a high priority for now.
 > - The debuginfo test suite has been extended with 14 test files including tests for packed structs (with Drop), boxed structs, boxed vecs, vec slices, C-style enums (standalone and embedded), empty enums, tuple- and struct-style enums, and various pointer types to the above.
-> 
+>
 > What is not yet included is DI support for some enum edge-cases represented as described in `trans::adt::NullablePointer`.
 
-I also actually tried to implement support for `DW_TAG_variant` and `DW_TAG_variant_part` in LLVM and I think I had a working [proof of concept](https://github.com/michaelwoerister/rust/commit/b1eb977a0483e23fcf60cfb1b9cf60b15acc4091). However, I then could not find any evidence that gdb actually made use of these _DIEs_, so I scraped it for now.
+I also actually tried to implement support for `DW_TAG_variant` and `DW_TAG_variant_part` in LLVM and I think I had a working [proof of concept](//github.com/michaelwoerister/rust/commit/b1eb977a0483e23fcf60cfb1b9cf60b15acc4091). However, I then could not find any evidence that gdb actually made use of these _DIEs_, so I scraped it for now.
 
 That I was even able to implement this in a few short hours speaks for LLVM's rather nicely structured codebase (even despite their letting all locals and arguments start with a capital letter―I mean, come on, girls! Really?)
 
-After some [changes](https://github.com/mozilla/rust/commit/2d3262ca7b94b53178daa06fa72d5427584ae842) by [nikomatsakis](https://github.com/nikomatsakis) to the way stack space is allocated for pattern bindings, the [code](https://github.com/michaelwoerister/rust/commit/fdc47f65dc443f2c7419439e44044971bb5f079e) for destructured local variables from last week also seems to work quite well. At least my [test cases so far](https://github.com/michaelwoerister/rust/blob/fdc47f65dc443f2c7419439e44044971bb5f079e/src/test/debug-info/destructured-local.rs) suggest that.
+After some [changes](//github.com/mozilla/rust/commit/2d3262ca7b94b53178daa06fa72d5427584ae842) by [nikomatsakis](//github.com/nikomatsakis) to the way stack space is allocated for pattern bindings, the [code](//github.com/michaelwoerister/rust/commit/fdc47f65dc443f2c7419439e44044971bb5f079e) for destructured local variables from last week also seems to work quite well. At least my [test cases so far](//github.com/michaelwoerister/rust/blob/fdc47f65dc443f2c7419439e44044971bb5f079e/src/test/debug-info/destructured-local.rs) suggest that.
 
-I also did some [reporting](https://github.com/mozilla/rust/issues/7715) and (hopefully) [fixing](https://github.com/mozilla/rust/issues/7712) of issues. All in all, I really enjoy working on `rustc` and with Rust and my fellow rusties. <img class="blackflower" src="{{site.url}}/images/flower-black.svg"></img>
+I also did some [reporting](//github.com/mozilla/rust/issues/7715) and (hopefully) [fixing](//github.com/mozilla/rust/issues/7712) of issues. All in all, I really enjoy working on `rustc` and with Rust and my fellow rusties. <img class="blackflower" src="{{site.url}}/images/flower-black.svg"></img>

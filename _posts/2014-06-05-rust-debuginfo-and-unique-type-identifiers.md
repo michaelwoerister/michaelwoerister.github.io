@@ -8,7 +8,7 @@ merged into one compilation unit (as is the case when link-time optimization is 
 a way of telling which type debuginfo is the same in both crates. This allows it to get rid of
 duplicate data. Also, when there is a conflict in the type identifiers (i.e. two different types
 have the same identifier) LLVM will abort with an assertion, an
-[issue](https://github.com/mozilla/rust/issues/13681) that has been poping up a few times lately.
+[issue](//github.com/mozilla/rust/issues/13681) that has been poping up a few times lately.
 So I set out to create something that would solve this issue once and for all, a task that turned
 out to be more difficult, but also more interesting than I anticipated.
 
@@ -53,7 +53,7 @@ fn main() {
 So, no luck with that approach. Fortunately, <span style="font-variant: small-caps">rustc</span>
 stores metadata about each type reachable from other crates: The AST node ID (contained in the crate
 metadata) of the type's definition uniquely identifies any struct, enum, etc. within the crate it is
-defined in. Combined with the [Strict Version Hash](https://github.com/mozilla/rust/blob/0.10/src/librustc/back/svh.rs#L11) of the defining crate, we have a globally unique type identifier. We just
+defined in. Combined with the [Strict Version Hash](//github.com/mozilla/rust/blob/0.10/src/librustc/back/svh.rs#L11) of the defining crate, we have a globally unique type identifier. We just
 have to extract this information ― and make sure that we always take the original definition in
 the case of types inlined from other crates, where multiple copies of a type definition exist.
 Here is an example of such a type identifier:
@@ -66,7 +66,7 @@ Here is an example of such a type identifier:
 
 ## Structurally Typed Types
 Rust also has types without names, like tuples, pointers, and function types. These kinds of types are
-considered equivalent if their components are equivalent (i.e. they are [structurally typed](http://en.wikipedia.org/wiki/Structural_typing)). This property needs to be reflected by the unique type identifier so that
+considered equivalent if their components are equivalent (i.e. they are [structurally typed](//en.wikipedia.org/wiki/Structural_typing)). This property needs to be reflected by the unique type identifier so that
 two equivalent tuple types always result in the same identifier. A straightforward way of achieving
 this is to simply build our type identifier from the identifiers of the component types, like in the
 following example:
@@ -174,6 +174,6 @@ we dodged that particular bullet.
 
 ## Conclusion
 I'm still working on getting this implemented in <span style="font-variant: small-caps">rustc</span>
-but the [results](https://github.com/michaelwoerister/rust/tree/unique_type_id) look promising so
+but the [results](//github.com/michaelwoerister/rust/tree/unique_type_id) look promising so
 far. If you have any comments, please post them to the corresponding
-[/r/rust thread](http://www.reddit.com/r/rust/comments/27dlam/rust_debuginfo_and_unique_type_identifiers/). <img class="blackflower" src="{{site.url}}/images/flower-black.svg"></img>
+[/r/rust thread](//www.reddit.com/r/rust/comments/27dlam/rust_debuginfo_and_unique_type_identifiers/). <img class="blackflower" src="{{site.url}}/images/flower-black.svg"></img>

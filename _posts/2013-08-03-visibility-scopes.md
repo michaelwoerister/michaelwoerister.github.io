@@ -6,13 +6,13 @@ layout: default
 The last few days I've mostly been working on the creation of proper scoping information in Rust debug symbols. As often is the case, it soon turned out that this is a deeper, more complex topic than it looked on first sight. This post will provide a small chronology of my journey into its unexpected crevices.
 
 <center>
-<img src="http://michaelwoerister.github.io/images/hanoi.jpg" alt="Towers of hanoi. Source: http://commons.wikimedia.org/wiki/File:PSM_V26_D464_The_tower_of_hanoi.jpg"></img>
+<img src="//michaelwoerister.github.io/images/hanoi.jpg" alt="Towers of hanoi. Source: //commons.wikimedia.org/wiki/File:PSM_V26_D464_The_tower_of_hanoi.jpg"></img>
 </center>
 
 
 
 ## Point of Departure
-Debug info generation in `rustc` already had rudimentary support for describing visibility scopes but the implementation was fragile and missed some important features. Most notably, it could not properly describe how [variable shadowing](http://en.wikipedia.org/wiki/Variable_shadowing) in Rust works. In typical rust code, it is rather common to re-use variable names:
+Debug info generation in `rustc` already had rudimentary support for describing visibility scopes but the implementation was fragile and missed some important features. Most notably, it could not properly describe how [variable shadowing](//en.wikipedia.org/wiki/Variable_shadowing) in Rust works. In typical rust code, it is rather common to re-use variable names:
 
 ```rust
 let result = some_function();
@@ -75,7 +75,7 @@ Later, when the translation process wanted to assign the correct scope info to s
 I was *not* particularly fond of this approach for a couple of reasons:
 
 + It relied a lot on public functions of the `debuginfo` module to be called from the outside in the correct order---i.e. the user of the module had to make sure not to request the scope of an expression before translating all `let` bindings before that expression.
-+ Searching for the correct scope by code-location seemed kind of roundabout, and relied on expression/statement source spans to rise monotonically with evaluation order. 
++ Searching for the correct scope by code-location seemed kind of roundabout, and relied on expression/statement source spans to rise monotonically with evaluation order.
 
 Yet, the approach was a natural evolution of the existing system and delivered seemingly stable results. Until macros entered the picture...
 
@@ -85,10 +85,10 @@ When I tried to compile some code containing a macro, source locations suddenly 
 ```rust
 0  macro_rules! plus_one (
 1     ($e:expr) => (
-2         $e 
+2         $e
 3         + 1)
 4  )
-5 
+5
 6  fn main() {
 7      plus_one!(41);
 8  }
@@ -130,7 +130,7 @@ expands to
 ```rust
     10  fn main() {
      1    (
-2/11/2      if 41 < 0 {    // Note: 'if' and '< 0 {' are on line 2 
+2/11/2      if 41 < 0 {    // Note: 'if' and '< 0 {' are on line 2
   3/11        -41          //       '41' is always on line 11
      4      } else {
     11        41
@@ -146,7 +146,7 @@ I had to go back to the drawing board and come up with a better solution for the
 
 ## Implementation Attempt #2 - Precomputed Scope Map
 
-The new method should not have any of the detriments of the former one: 
+The new method should not have any of the detriments of the former one:
 
 + No reliance on code locations as these are not unique in the presence of macros.
 + The module-external interface should not have a complicated, order/state-dependent protocol.
@@ -158,6 +158,6 @@ The second point can be handled by not providing any state mutating public funct
 
 The last point is also solved by explicitly walking the AST, instead of trying to somehow reconstruct the needed information from various auxiliary data structures built for other parts of the translation process. This is what the former method did.
 
-The [resulting algorithm](https://github.com/michaelwoerister/rust/blob/lexical_scopes_alt/src/librustc/middle/trans/debuginfo.rs) looks very promising. It is much easier to understand and already more full-featured than the former one. It still needs some more testing and fixing of corner cases, but the basic structure seems to allow to do so with strange hacks being needed.
+The [resulting algorithm](//github.com/michaelwoerister/rust/blob/lexical_scopes_alt/src/librustc/middle/trans/debuginfo.rs) looks very promising. It is much easier to understand and already more full-featured than the former one. It still needs some more testing and fixing of corner cases, but the basic structure seems to allow to do so with strange hacks being needed.
 
 Have a nice weekend! <img class="blackflower" src="{{site.url}}/images/flower-black.svg"></img>

@@ -27,12 +27,12 @@ I don't know yet what to do about this. The three possible options I see:
 + Try to find a DWARF description that tricks `gdb` into printing nicer output. Enums are very similar in memory layout to a single-inheritance one-level class hierarchy with an empty abstract base class, they just have a tag value instead of the vtable-pointer. Maybe this can be exploited somehow. I don't know yet.
 + Do nothing about it; which is my favored option for the moment, as I don't want to get distracted from implementing more important things.
 
-While I tried to cleanly support special cases (like enums with just one variant which do *not* have a discriminant value) I got blocked by some [functionality not yet being implemented](https://github.com/mozilla/rust/issues/7527) in the compiler. I followed [Josh's](https://github.com/jdm) suggestion and tried to solve the issue, which I [seemingly did](https://github.com/mozilla/rust/pull/7557). Now I am waiting for the pull request to be merged into master. After that I'll also implement struct-like enum variants (i.e. where each element has a name).
+While I tried to cleanly support special cases (like enums with just one variant which do *not* have a discriminant value) I got blocked by some [functionality not yet being implemented](//github.com/mozilla/rust/issues/7527) in the compiler. I followed [Josh's](//github.com/jdm) suggestion and tried to solve the issue, which I [seemingly did](//github.com/mozilla/rust/pull/7557). Now I am waiting for the pull request to be merged into master. After that I'll also implement struct-like enum variants (i.e. where each element has a name).
 
 In the meantime I tried to be productive and started implementing correct debug info generation for destructuring variable bindings like the following:
 ```rust
 let (a, (b, c)) = (1, (2.0, 'a'));
-```  
+```
 This turned out to be rather simple in theory, using the handy `pat_utils::pat_bindings()` function. However, I still get wrong debug information for the general case and I can't quite explain why. I'll need to take a look at the LLVM IR generated from the new implementation (next week).
 
 Well, that's it for today. Not so short after all <img class="blackflower" src="{{site.url}}/images/flower-black.svg"></img>
