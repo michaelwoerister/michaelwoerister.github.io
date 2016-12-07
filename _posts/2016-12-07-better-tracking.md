@@ -7,7 +7,7 @@ layout: default
 The Rust compiler uses dependency tracking in order to find out what needs to
 be re-compiled during incremental compilation. The model of data
 dependency currently used by the compiler is less powerful than it could be
-though. In this blog post I'll show what it shortcomings are and what a more
+though. In this blog post I'll show what its shortcomings are and what a more
 expressive model could look like.
 
 
@@ -39,7 +39,7 @@ This graph tells us that the function signature of `foo` depends on the AST of
 `foo` and that type checking another function (which contains a call to `foo`)
 in turn depends on `foo`'s function signature. Now suppose we change the AST
 in some way that does not actually affect the function signature -- like making a
-parameter `mut`, something which is only meaningful within to the body of a
+parameter `mut`, something which is only meaningful within the body of a
 function but has not influence on callers. The dependency tracking won't be
 able to determine that the signature actually hasn't changed. It just sees that
 the AST has changed and that there's an edge from the AST to the signature, so
@@ -100,11 +100,11 @@ having to re-compile every single module in the code base.
 
 ## Conclusion
 
-I'm sure that switching to the more powerful model with result in much better
+I'm sure that switching to the more powerful model will result in much better
 re-use rates, especially when we start to cache MIR and type-checking
 information -- because what we have now won't scale well to that.
 The new model will also make the compiler's implementation more
-unified by not requiring an additional concepts for some places, like we do
+unified by not requiring additional concepts for some places, like we do
 now for AST/HIR and codegen unit partitioning.
 
 On the other hand, there will be some new implementation challenges. The
@@ -113,5 +113,5 @@ that make its implementation much easier (like the assumption that there is
 no harm in doing cache invalidation in one big swoop at the beginning of the
 compilation process). I'll try to write about these new challenges and
 subtleties in follow-up posts, in no small part in order to get a good
-understand of them myself before jumping into an actual implementation.
+understanding of them myself before jumping into an actual implementation.
 <img class="blackflower" src="{{site.url}}/images/flower-black.svg"></img>
