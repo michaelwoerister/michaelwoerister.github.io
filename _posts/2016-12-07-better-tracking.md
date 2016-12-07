@@ -114,4 +114,5 @@ no harm in doing cache invalidation in one big swoop at the beginning of the
 compilation process). I'll try to write about these new challenges and
 subtleties in follow-up posts, in no small part in order to get a good
 understanding of them myself before jumping into an actual implementation.
-<img class="blackflower" src="{{site.url}}/images/flower-black.svg"></img>
+
+<img class="blackflower" src="{{site.url}}/images/flower-black.svg" />

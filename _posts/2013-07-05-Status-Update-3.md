@@ -35,4 +35,4 @@ let (a, (b, c)) = (1, (2.0, 'a'));
 ```
 This turned out to be rather simple in theory, using the handy `pat_utils::pat_bindings()` function. However, I still get wrong debug information for the general case and I can't quite explain why. I'll need to take a look at the LLVM IR generated from the new implementation (next week).
 
-Well, that's it for today. Not so short after all <img class="blackflower" src="{{site.url}}/images/flower-black.svg"></img>
+Well, that's it for today. Not so short after all <img class="blackflower" src="{{site.url}}/images/flower-black.svg">

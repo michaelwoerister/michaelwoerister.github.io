@@ -14,4 +14,4 @@ Apart from fixing [existing and emerging bugs](//github.com/mozilla/rust/issues?
 
 In conclusion, these are exciting times for me and I also hope good times for Rust's debuginfo support. Thanks, Mozilla, for making this happen and thanks especially to [Brian](//github.com/brson) who has been super helpful over the last weeks!
 
-<img class="blackflower" src="{{site.url}}/images/flower-black.svg"></img>
+<img class="blackflower" src="{{site.url}}/images/flower-black.svg">

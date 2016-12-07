@@ -8,7 +8,7 @@ layout: default
 
 
 
-It seems that it's time for my first status update, so here goes <img class="blackflower" src="{{site.url}}/images/flower-black.svg"></img>
+It seems that it's time for my first status update, so here goes <img class="blackflower" src="{{site.url}}/images/flower-black.svg">
 
 I think I got a good start working in the Rust code base. I began doing my first work package,
 adding documentation to debuginfo.rs and cleaning up the code. It turned out that

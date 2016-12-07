@@ -221,7 +221,7 @@ considered a variation of this (shall we call it "compile-time RAII") and I
 encourage everyone to think about how the borrow-checker can help design
 APIs that enforce correct usage at compile-time and without incurring any
 runtime overhead!
-<img class="blackflower" src="{{site.url}}/images/flower-black.svg"></img>
+<img class="blackflower" src="{{site.url}}/images/flower-black.svg">
 
 
 #### PS.

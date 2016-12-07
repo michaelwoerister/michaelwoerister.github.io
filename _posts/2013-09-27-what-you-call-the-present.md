@@ -126,7 +126,7 @@ Another thing on my wish list are GDB pretty printers. These would allow to disp
 By far the most ambitious project would be a real, native Rust debugger and adoption of Rust into the DWARF standard. Both are probably more feasible than they seem at first sight. DWARF already supports most of what's needed for Rust. A few type modifiers for e.g. `~` and `@` would be nice, also having special tags for traits and tuples. But these should not require much more than adding some `DW_TAG_*` constants to the standard. The more complicated things like discriminated unions are actually already in place.<br>
 On the debugger side, [LLDB](//lldb.llvm.org/) would probably provide for a very good foundation for a native Rust debugger, once it is mature enough. It would still be quite an undertaking but one could start far from zero. I'm looking forward to seeing what the future brings in this regard `:)`
 
-## Acknowledgments <img class="blackflower" src="{{site.url}}/images/flower-black.svg"></img>
+## Acknowledgments <img class="blackflower" src="{{site.url}}/images/flower-black.svg">
 
 Since this is a kind of GSoC-conclusion post I want to take the time to thank my *GSoC mentor* Josh Matthews who has been of great help the whole time. Thanks Josh! `:)` I also want to thank Brian Anderson and Graydon Hoare for their encouraging comments and the rest of the Rust community for being awesome!
 

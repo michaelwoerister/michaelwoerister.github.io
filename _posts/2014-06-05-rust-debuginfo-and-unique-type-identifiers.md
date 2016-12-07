@@ -176,4 +176,4 @@ we dodged that particular bullet.
 I'm still working on getting this implemented in <span style="font-variant: small-caps">rustc</span>
 but the [results](//github.com/michaelwoerister/rust/tree/unique_type_id) look promising so
 far. If you have any comments, please post them to the corresponding
-[/r/rust thread](//www.reddit.com/r/rust/comments/27dlam/rust_debuginfo_and_unique_type_identifiers/). <img class="blackflower" src="{{site.url}}/images/flower-black.svg"></img>
+[/r/rust thread](//www.reddit.com/r/rust/comments/27dlam/rust_debuginfo_and_unique_type_identifiers/). <img class="blackflower" src="{{site.url}}/images/flower-black.svg">

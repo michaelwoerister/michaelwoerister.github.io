@@ -20,4 +20,4 @@ Not many words from me this time. This week I worked on:
 
 
 
-Have a nice weekend! <img class="blackflower" src="{{site.url}}/images/flower-black.svg"></img>
+Have a nice weekend! <img class="blackflower" src="{{site.url}}/images/flower-black.svg">

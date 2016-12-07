@@ -19,4 +19,4 @@ There it is---you finally know where this exuberance of yours has been coming
 from all of a sudden.
 
 It's OK to embrace it now, really.
-I do too.<img class="blackflower" src="{{site.url}}/images/flower-black.svg"></img>
+I do too.<img class="blackflower" src="{{site.url}}/images/flower-black.svg">

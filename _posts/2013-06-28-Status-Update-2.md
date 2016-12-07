@@ -40,4 +40,4 @@ Another way I tried to make the debug info code as stable as possible, is to kee
 
 And the third safety net are of course more [automated](//github.com/michaelwoerister/rust/blob/a4ca282c666eeb9c1557e1bd30a67ebc0b707962/src/test/debug-info/struct-with-destructor.rs) [tests](//github.com/michaelwoerister/rust/blob/a4ca282c666eeb9c1557e1bd30a67ebc0b707962/src/test/debug-info/vec-slices.rs), with which I try to complement each new feature immediately.
 
-With all of this in place, I hope we can have some confidence in the data the debugger will put on our screens in the (hopefully near) future <img class="blackflower" src="{{site.url}}/images/flower-black.svg"></img>
+With all of this in place, I hope we can have some confidence in the data the debugger will put on our screens in the (hopefully near) future <img class="blackflower" src="{{site.url}}/images/flower-black.svg">
