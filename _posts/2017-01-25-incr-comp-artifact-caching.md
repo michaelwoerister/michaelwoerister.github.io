@@ -4,13 +4,13 @@ layout: default
 
 # Incremental Computation Model Refresher
 
-I orginally planned to describe the improved dependency tracking algorithm for
+I originally planned to describe the improved dependency tracking algorithm for
 the Rust's incremental compilation as the follow-up to the
 [last post](http://michaelwoerister.github.io/2016/12/07/better-tracking.html).
 However, while doing a draft of that, I kept getting confused about cached
 results and their exact relationship to nodes in the dependency graph. I think
 it's useful to write down what my mental model for incremental computation in
-the compiler is, especially since it's slightly different that what's described
+the compiler is, especially since it's slightly different than what's described
 in the [incr. comp. alpha version blog post](https://blog.rust-lang.org/2016/09/08/incremental.html)
 and also in the [incr. comp. RFC](https://github.com/rust-lang/rfcs/blob/master/text/1298-incremental-compilation.md).
 
