@@ -141,7 +141,7 @@ changes. Now let's say, we replace the nodes `A` and `B` with one new node
 
 ```
 
-We still can give the same guarantees: If `I1` or `I2` changes, `A`s
+We still can give the same guarantees: If `I1` or `I2` changes, `A`'s
 cache entry is purged (because both cache entries are) and if `I3` changes
 then `B`'s cache entry is purged (because, again, both are). So we have
 effectively traded tracking overhead for getting more false positives during
@@ -165,7 +165,7 @@ nodes.
 So we have the computation graph, each node of which corresponds to zero or one
 cache entries. And we have the dependency graph, each node of which corresponds
 to one or more computation nodes. Thus we can link each dependency node to all
-corresponding cache entries (which we need to during during cache invalidation)
+corresponding cache entries (which we need to during cache invalidation)
 and vice versa (which we need to do during dependency tracking).
 
 
@@ -223,7 +223,7 @@ the compiler also never has made this kind of distinction).
 It is just a convenient way of mapping the
 compiler's "passes that read and produce data" execution model to a
 dependency graph. And there has always really only been one kind of edge in the
-dependency graph: a "write edge" is just a recorded as a reverse "read edge".
+dependency graph: a "write edge" is just recorded as a reverse "read edge".
 
 In order to see that the two models are equivalent, we can provide a mapping
 from one to the other:
@@ -237,12 +237,12 @@ I prefer the computation graph model to the procedures-and-data graph model,
 since it only has one kind of node and one kind of edge instead of two of both.
 
 
-## What about other Incremental Computation model like Adapton?
+## What about other Incremental Computation models like Adapton?
 
 There's quite a bit of existing research on incremental computation. One very
 interesting model is [Adapton](http://adapton.org). It looks like it maps well
 to our needs and indeed, after reading the papers, I think Nominal Adapton's
-`demanded computation graph` is pretty much the same as the computation graph
+`demanded computation graph` is pretty much equivalent to the computation graph
 as I described it above (where a `ref` in Adapation is what I called a trivial
 computation and a `thunk` would be a regular computation). That would be pretty
 cool because the Adapton people have put lots of effort into proving things
